@@ -29,12 +29,19 @@ func parsePrintc(args string) Command {
 	return &PrintcCommand{Count: count, Str: parts[1]}
 }
 
-func ParseCommand(cmd string, args string) Command {
+func ParseCommand(line string) Command {
+	parts := strings.Fields(line)
+	if len(parts) == 0 {
+		return errorCmd("Empty line")
+	}
+	cmd := parts[0]
+	start := len(cmd)
+	args := strings.TrimPrefix(line[start:], " ")
 	if cmd == "print" {
 		return parsePrint(args)
 	} else if cmd == "printc" {
 		return parsePrintc(args)
 	} else {
-		return &PrintCommand{Msg: fmt.Sprintf("Error: Unknown command: %s", cmd)}
+		return errorCmd(fmt.Sprintf("Error: Unknown command: %s", cmd))
 	}
 }
