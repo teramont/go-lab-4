@@ -8,7 +8,7 @@ import (
 )
 
 func usage() {
-	fmt.Println("Usage: os-lab-4 <file>")
+	fmt.Println("Usage: os <file>")
 	os.Exit(1)
 }
 
@@ -26,9 +26,13 @@ func main() {
 	file, err := os.Open(os.Args[1])
 	handle(err)
 	defer file.Close()
+	loop := Loop{}
+	loop.Start()
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-		_ = ParseCommand(line)
+		cmd := ParseCommand(line)
+		loop.Post(cmd)
 	}
+	loop.AwaitFinish()
 }
