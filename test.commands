@@ -1,0 +1,3 @@
+print hello 
+printc 12 a
+print world

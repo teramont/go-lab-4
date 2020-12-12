@@ -40,3 +40,9 @@ func (cmd *PrintcCommand) Execute(handler Handler) {
 	print := PrintCommand{msg}
 	handler.Post(&print)
 }
+
+type CommandFunc func(h Handler)
+
+func (fn CommandFunc) Execute(h Handler) {
+	fn(h)
+}

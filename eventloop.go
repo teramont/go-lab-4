@@ -72,15 +72,9 @@ func (l *Loop) Post(cmd Command) {
 	l.queue.push(cmd)
 }
 
-type finishCommand struct {
-	loop *Loop
-}
-
-func (cmd *finishCommand) Execute(h Handler) {
-	cmd.loop.running = false
-}
-
 func (l *Loop) AwaitFinish() {
-	l.queue.push(&finishCommand{loop: l})
+	l.queue.push(CommandFunc(func(h Handler) {
+		l.running = false
+	}))
 	<-l.done
 }
