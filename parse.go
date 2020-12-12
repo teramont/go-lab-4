@@ -7,7 +7,7 @@ import (
 )
 
 func errorCmd(Msg string) Command {
-	return &PrintCommand{Msg}
+	return &ErrorCommand{Msg}
 }
 
 func parsePrint(args string) Command {

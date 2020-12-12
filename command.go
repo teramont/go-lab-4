@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -19,6 +20,14 @@ type PrintCommand struct {
 
 func (cmd *PrintCommand) Execute(handler Handler) {
 	fmt.Println(cmd.Msg)
+}
+
+type ErrorCommand struct {
+	Msg string
+}
+
+func (cmd *ErrorCommand) Execute(handler Handler) {
+	fmt.Fprintln(os.Stderr, cmd.Msg)
 }
 
 type PrintcCommand struct {
