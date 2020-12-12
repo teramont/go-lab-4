@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPostfixToPrefix(t *testing.T) {
+func TestParse(t *testing.T) {
 	print := ParseCommand("print Hello world")
 	printc := ParseCommand("printc   12 h")
 
